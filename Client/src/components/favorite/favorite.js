@@ -29,6 +29,7 @@ class Favorite extends React.Component {
   _renderItem = ({item, index}) => {
     const image = 'https://image.tmdb.org/t/p/w500' + item.poster_path;
     return (
+      <View>
         <View style={styles.slide}>
           <Image style={styles.poster} source={{uri: image}}/>
           <View style={styles.movieContent}>
@@ -40,14 +41,16 @@ class Favorite extends React.Component {
                                     </View>}
             <Text style={styles.releaseDate}>{ item.release_date }</Text>
           </View>
-          <View>
+          <View style={styles.BtnContainer}>
             <TouchableHighlight
-              style={styles.addToFavoriteBtn}
+              style={styles.RemoveBtn}
               onPress={() => this._onRemove}>
-              <Text style={styles.addToFavoriteBtn}>Remove</Text>
+              <Text style={styles.removeText}>X</Text>
             </TouchableHighlight>
           </View>
         </View>
+        <View style={styles.line}></View>
+      </View>
       );
   }
 //   getFavoriteList
@@ -74,21 +77,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   slide: {
-    marginTop: 5,
-    marginBottom: 5,
+    margin: 10,
     display: "flex",
     flexDirection: "row",
-    fontFamily: 'Cochin'
+    fontFamily: 'Cochin',
+  },
+  line: {
+    borderColor: '#aca5a5',
+    borderWidth: 1,
   },
   poster: {
     width: 100,
     height: 100,
-    marginBottom: 10,
   },
   movieContent: {
-
+    marginLeft: 10,
+    marginRight: 10,
   },
   title: {
+    width: 190,
     color: '#000000',
     fontWeight: 'bold',
     textTransform: 'uppercase',
@@ -122,6 +129,25 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 12,
   },
+  RemoveBtn: {
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    alignContent: 'center',
+    textAlign: 'center',
+  },
+  removeText: {
+    fontFamily: 'Cochin',
+    fontWeight: 'bold',
+    color: '#000000',
+    paddingRight: 5,
+    paddingLeft: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+  },
+  BtnContainer: {
+    justifyContent: 'center',
+    alignContent: 'center',
+  }
 });
 
 const mapStateToProps = (state) => ({
