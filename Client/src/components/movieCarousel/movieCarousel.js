@@ -276,7 +276,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     justifyContent: 'center',
     alignContent: 'center',
-    textAlign: 'center',
   },
   hideButtonText: {
     fontSize: 14,
@@ -296,7 +295,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     justifyContent: 'center',
     alignContent: 'center',
-    textAlign: 'center',
   },
   addFavoriteText: {
     fontSize: 14,
