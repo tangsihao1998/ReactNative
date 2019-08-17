@@ -7,7 +7,7 @@
  */
 
 import React, { Fragment } from 'react';
-import { View, StyleSheet, Text, ScrollView, Alert, Image, TouchableWithoutFeedback, TouchableHighlight, FlatList } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Alert, Image, TouchableHighlight, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
 //import component
@@ -20,8 +20,22 @@ class Favorite extends React.Component {
     super(props);
   }
 
-  _onRemove = () => {
-
+  _onRemove = (index) => {
+    const { favoriteList, addToFavoriteList} = this.props;
+    let newFavor = [];
+    for(let i = 0; i < favoriteList.length; ++i){
+      newFavor[i] = favoriteList[i];
+    }
+    newFavor.splice(index, 1);
+    addToFavoriteList(newFavor);
+    Alert.alert(
+      'Remove From Favorite',
+      'This movie has been remove from Favorite List',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      {cancelable: false},
+    );
   }
   
   _keyExtractor = (item, index) => item.id;
@@ -44,7 +58,7 @@ class Favorite extends React.Component {
           <View style={styles.BtnContainer}>
             <TouchableHighlight
               style={styles.RemoveBtn}
-              onPress={() => this._onRemove}>
+              onPress={() => this._onRemove(index)}>
               <Text style={styles.removeText}>X</Text>
             </TouchableHighlight>
           </View>
@@ -133,7 +147,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     justifyContent: 'center',
     alignContent: 'center',
-    textAlign: 'center',
   },
   removeText: {
     fontFamily: 'Cochin',
@@ -155,7 +168,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // addToFavoriteList: (favoriteList) => dispatch(actions.addToFavoriteList(favoriteList)),
+  addToFavoriteList: (favoriteList) => dispatch(actions.addToFavoriteList(favoriteList)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Favorite);
