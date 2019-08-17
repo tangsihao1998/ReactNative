@@ -144,12 +144,12 @@ class movieCarousel extends React.Component {
                   onPress={() => {
                     this.setModalVisible(!modalVisible);
                   }}>
-                  <Text style={styles.hideButton}>Hide</Text>
+                  <Text style={styles.hideButtonText}>Hide</Text>
                 </TouchableHighlight>
                 <TouchableHighlight
                   style={styles.addToFavoriteBtn}
                   onPress={() => this.addToFavoriteClick(movieChoose)}>
-                  <Text style={styles.addToFavoriteBtn}>Add to Favorite</Text>
+                  <Text style={styles.addFavoriteText}>Add to Favorite</Text>
                 </TouchableHighlight>
               </View>
             </ScrollView>
@@ -175,7 +175,6 @@ const styles = StyleSheet.create({
   poster: {
     width: 200,
     height: 300,
-    marginBottom: 10,
   },
   title: {
     color: '#ffffff',
@@ -223,6 +222,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginBottom: 10,
   },
   posterDetail: {
     width: 200,
@@ -267,32 +267,42 @@ const styles = StyleSheet.create({
   // Button Hide Modal
   hideButton: {
     backgroundColor: '#ca0707',
-    fontSize: 14,
-    fontFamily: 'Cochin',
-    fontWeight: 'bold',
     borderColor: '#8a0505',
     borderRadius: 6,
     borderWidth: 1,
-    width: 80,
-    color: '#ffffff',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 5,
+    paddingTop: 5,
     justifyContent: 'center',
     alignContent: 'center',
     textAlign: 'center',
   },
-  // Add to Favorite Button
-  addToFavoriteBtn: {
-    backgroundColor: '#ca0707',
+  hideButtonText: {
     fontSize: 14,
     fontFamily: 'Cochin',
     fontWeight: 'bold',
+    color: '#ffffff',
+  },
+  // Add to Favorite Button
+  addToFavoriteBtn: {
+    backgroundColor: '#ca0707',
     borderColor: '#8a0505',
     borderRadius: 6,
     borderWidth: 1,
-    width: 160,
-    color: '#ffffff',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 5,
+    paddingTop: 5,
     justifyContent: 'center',
     alignContent: 'center',
     textAlign: 'center',
+  },
+  addFavoriteText: {
+    fontSize: 14,
+    color: '#ffffff',
+    fontFamily: 'Cochin',
+    fontWeight: 'bold',
   }
 });
 
