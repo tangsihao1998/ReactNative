@@ -20,6 +20,10 @@ class Favorite extends React.Component {
     super(props);
   }
 
+  _onRemove = () => {
+
+  }
+  
   _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({item, index}) => {
@@ -35,6 +39,13 @@ class Favorite extends React.Component {
                                       <Text style={styles.age13}>C13</Text>
                                     </View>}
             <Text style={styles.releaseDate}>{ item.release_date }</Text>
+          </View>
+          <View>
+            <TouchableHighlight
+              style={styles.addToFavoriteBtn}
+              onPress={() => this._onRemove}>
+              <Text style={styles.addToFavoriteBtn}>Remove</Text>
+            </TouchableHighlight>
           </View>
         </View>
       );
@@ -63,11 +74,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   slide: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 5,
+    marginBottom: 5,
     display: "flex",
     flexDirection: "row",
-    justifyContent: 'space-around',
     fontFamily: 'Cochin'
   },
   poster: {
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   movieContent: {
-    
+
   },
   title: {
     color: '#000000',

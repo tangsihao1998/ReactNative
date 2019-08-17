@@ -57,11 +57,6 @@ class movieCarousel extends React.Component {
         'Add to Favorite',
         'This movie has been add to Favorite List before',
         [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],
         {cancelable: false},
@@ -74,11 +69,6 @@ class movieCarousel extends React.Component {
         'Add to Favorite',
         'Movie has been add to Favorite list',
         [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],
         {cancelable: false},
