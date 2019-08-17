@@ -17,7 +17,7 @@ The following **required** functionality is completed:
 - [] Add a search bar.
 - [X] All images loading progress
 - [X] For each Item, user can: Add to favorite.
-- [] For each Item in **Favorite** tab, user can: Remove from favorite.
+- [X] For each Item in **Favorite** tab, user can: Remove from favorite.
 
 The following **additional** features are implemented:
 - [] Use Animated library to improve UX.
