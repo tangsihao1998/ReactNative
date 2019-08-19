@@ -16,3 +16,8 @@ export const addToFavoriteList = (favoriteList) => (dispatch) => {
   });
 };
 
+export const pageIncrement = () => (dispatch) => {
+  dispatch({
+    type:'PAGE_INCREMENT',
+  });
+}

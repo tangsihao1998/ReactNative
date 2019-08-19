@@ -8,14 +8,20 @@
 
 import React, { Fragment } from 'react';
 import { View, StyleSheet, RefreshControl, ProgressBarAndroid } from 'react-native';
+import { connect } from 'react-redux';
 
 //import component
 import MovieCarousel from '../movieCarousel/movieCarousel';
+
+//import component
+import actions from '../../redux/action/index';
+import selectors from '../../redux/selector/index';
 
 class NowPlaying extends React.Component { 
 
   constructor(props) {
     super(props);
+    this.isFetching = false;
     this.state = {
       data: [],
       refreshing: false,
@@ -24,15 +30,30 @@ class NowPlaying extends React.Component {
   }
 
   async componentDidMount() {
-    const data = await this.takeDataFromMovieDB();
+    const { loadPage } = this.props;
+    const listMovie = await this.takeDataFromMovieDB(loadPage);
+    const data = [...this.state.data,...listMovie.results];
     this.setState({
-      data: data.results,
+      data,
       loading: true,
     });
   }
 
-  takeDataFromMovieDB = () => {
-    return fetch('https://api.themoviedb.org/3/movie/now_playing?page=1&language=en-US&api_key=2156e3712ab67eb8be8e9e34a13bfde6', {method: 'GET'})
+  async componentDidUpdate (prevProps, prevState) {
+    if(this.props.loadPage !== prevProps.loadPage && !this.isFetching) {
+      this.isFetching = true;
+      const listMovie = await this.takeDataFromMovieDB(this.props.loadPage);
+      const data = [...this.state.data,...listMovie.results];
+      this.setState({
+        data,
+      });
+      console.log('come here in COmponent Did Update', this.state.data);
+      this.isFetching = false;
+    }
+  }
+
+  takeDataFromMovieDB = (loadPage) => {
+    return fetch(`https://api.themoviedb.org/3/movie/now_playing?page=${loadPage}&language=en-US&api_key=2156e3712ab67eb8be8e9e34a13bfde6`, {method: 'GET'})
     .then((response) => {
       return response.json()
     })
@@ -70,4 +91,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NowPlaying;
+const mapStateToProps = (state) => ({
+  loadPage: selectors.getLoadPage(state),
+  loadingState: selectors.getLoadingState(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addToFavoriteList: (favoriteList) => dispatch(actions.addToFavoriteList(favoriteList)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);
