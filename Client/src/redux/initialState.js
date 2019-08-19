@@ -4,5 +4,6 @@ export default {
     favoriteList: [],
     loadingState: false,
     fetchMore: false,
+    network: '',
   }
 };
