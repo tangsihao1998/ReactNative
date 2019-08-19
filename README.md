@@ -10,7 +10,7 @@ The following **required** functionality is completed:
 - [X] User can view a list of movies currently playing in theaters. Poster images load asynchronously.
 - [X] User can view movie details by tapping on a cell.
 - [X] User sees loading state while waiting for the API.
-- [] User sees an error message when there is a network error.
+- [X] User sees an error message when there is a network error.
 - [X] User can pull to refresh the movie list.
 - [X] Infinite load (lazy load) the movie list.
 - [X] Add a tab bar for **Now Playing**, **Top Rated** and **Favorite** movies.
