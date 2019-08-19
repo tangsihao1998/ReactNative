@@ -20,6 +20,10 @@ class Favorite extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.getFavoriteListStorage();
+  }
+
   _onRemove = (index) => {
     const { favoriteList, addToFavoriteList} = this.props;
     let newFavor = [];
@@ -169,6 +173,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addToFavoriteList: (favoriteList) => dispatch(actions.addToFavoriteList(favoriteList)),
+  getFavoriteListStorage: () => dispatch(actions.getFavoriteListStorage()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Favorite);

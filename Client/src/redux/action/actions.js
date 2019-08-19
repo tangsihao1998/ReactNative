@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-community/async-storage';
+
 export const changeTabMode = (tabType) => (dispatch) => {
   dispatch({
     type:'CHANGE_TAB_MODE',
@@ -7,11 +9,27 @@ export const changeTabMode = (tabType) => (dispatch) => {
   });
 };
 
-export const addToFavoriteList = (favoriteList) => (dispatch) => {
+export const getFavoriteListStorage = () => async (dispatch) => {
+  let data = JSON.parse(await AsyncStorage.getItem('favoriteList'));
+  if(data === null) {
+    data = [];
+  }
+  dispatch({
+    type:'GET_FAVORITE_LIST',
+    payload: {
+      favoriteList: data,
+    }
+  });
+}
+
+export const addToFavoriteList = (favoriteList) => async (dispatch) => {
+  await AsyncStorage.removeItem('favoriteList');
+  await AsyncStorage.setItem('favoriteList',  JSON.stringify(favoriteList));
+  const data = JSON.parse(await AsyncStorage.getItem('favoriteList'));
   dispatch({
     type:'ADD_MOVIE_TO_FAVORITE',
     payload: {
-      favoriteList
+      favoriteList: data,
     }
   });
 };
