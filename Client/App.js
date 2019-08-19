@@ -8,7 +8,7 @@
 
 import React, {Fragment} from 'react';
 import NetInfo from "@react-native-community/netinfo";
-import { View, StatusBar, StyleSheet, Alert } from 'react-native';
+import { View, StatusBar, StyleSheet, Alert, Text } from 'react-native';
 
 //import Component
 import Header from './src/components/header/header';
@@ -22,6 +22,9 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      open: true,
+    }
   }
 
   componentDidMount() {
@@ -35,21 +38,23 @@ class App extends React.Component {
     return (
       <Fragment>
         <View>
-          <StatusBar barStyle="dark-content" />
-          <View style={styles.appBackground}>
-            <Header />
-            <BodyView />
+          <View>
+            <StatusBar barStyle="dark-content" />
+            <View style={styles.appBackground}>
+              <Header />
+              <BodyView />
+            </View>
           </View>
         </View>
-        { (!NetWork.isConnected && (NetWork.type === 'none' || NetWork.type === 'unknown' )) 
-          && Alert.alert(
+        { (!NetWork.isConnected && (NetWork.type === 'none' || NetWork.type === 'unknown' ) && this.state.open) &&
+          Alert.alert(
             'Network connection error',
             'You need to connect to the internet',
             [
-              {text: 'OK', onPress: () => null},
+              {text: 'OK', onPress: () => this.setState({open:true,})},
             ],
             {cancelable: false},
-          )
+          ) 
         }
       </Fragment>
     );
@@ -59,7 +64,7 @@ class App extends React.Component {
 const styles = StyleSheet.create ({
   appBackground: {
     backgroundColor: "#a8a8a8",
-  }
+  },
 });
 
 const mapStateToProps = (state) => ({
