@@ -32,6 +32,12 @@ export default initialState => (state = initialState, action) => {
         fetchMore: false,
       }
     }
+    case 'GET_NET_WORK': {
+      return {
+        ...state,
+        network: payload.netWork
+      }
+    }
     default:
       return state;
   }

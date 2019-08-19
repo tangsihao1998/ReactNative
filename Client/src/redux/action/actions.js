@@ -45,3 +45,12 @@ export const doneFetchMore = () => (dispatch) => {
     type:'DONE_FETCH_MORE',
   });
 }
+
+export const changeNetwork = (netWork) => (dispatch) => {
+  dispatch({
+    type:'GET_NET_WORK',
+    payload: {
+      netWork,
+    }
+  });
+}
