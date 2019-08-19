@@ -14,11 +14,16 @@ export default initialState => (state = initialState, action) => {
         favoriteList: payload.favoriteList
       }
     }
-    case 'PAGE_INCREMENT': {
-      console.log('Reducer ',state.loadPage);
+    case 'FETCH_MORE': {
       return {
         ...state,
-        loadPage: state.loadPage + 1,
+        fetchMore: true,
+      }
+    }
+    case 'DONE_FETCH_MORE': {
+      return {
+        ...state,
+        fetchMore: false,
       }
     }
     default:

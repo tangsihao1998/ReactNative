@@ -16,8 +16,14 @@ export const addToFavoriteList = (favoriteList) => (dispatch) => {
   });
 };
 
-export const pageIncrement = () => (dispatch) => {
+export const fetchMore = () => (dispatch) => {
   dispatch({
-    type:'PAGE_INCREMENT',
+    type:'FETCH_MORE',
+  });
+}
+
+export const doneFetchMore = () => (dispatch) => {
+  dispatch({
+    type:'DONE_FETCH_MORE',
   });
 }

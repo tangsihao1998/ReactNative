@@ -29,11 +29,9 @@ class movieCarousel extends React.Component {
   }
 
   _onScroll = () => {
-    const { data, pageIncrement } = this.props;
+    const { data, fetchMore } = this.props;
     if(this._carousel.currentIndex === Math.floor(data.length / 2)) {
-      console.log('come here');
-      pageIncrement();
-      console.log('End come here');
+      fetchMore();
     }
   }
 
@@ -315,7 +313,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addToFavoriteList: (favoriteList) => dispatch(actions.addToFavoriteList(favoriteList)),
-  pageIncrement: () => dispatch(actions.pageIncrement()),
+  fetchMore: () => dispatch(actions.fetchMore()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(movieCarousel);

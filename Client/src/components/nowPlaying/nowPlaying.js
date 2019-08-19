@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 //import component
 import MovieCarousel from '../movieCarousel/movieCarousel';
 
-//import component
+//import redux
 import actions from '../../redux/action/index';
 import selectors from '../../redux/selector/index';
 
@@ -22,6 +22,7 @@ class NowPlaying extends React.Component {
   constructor(props) {
     super(props);
     this.isFetching = false;
+    this.pageLoad = 1;
     this.state = {
       data: [],
       refreshing: false,
@@ -30,8 +31,7 @@ class NowPlaying extends React.Component {
   }
 
   async componentDidMount() {
-    const { loadPage } = this.props;
-    const listMovie = await this.takeDataFromMovieDB(loadPage);
+    const listMovie = await this.takeDataFromMovieDB(this.loadPage);
     const data = [...this.state.data,...listMovie.results];
     this.setState({
       data,
@@ -40,15 +40,19 @@ class NowPlaying extends React.Component {
   }
 
   async componentDidUpdate (prevProps, prevState) {
-    if(this.props.loadPage !== prevProps.loadPage && !this.isFetching) {
-      this.isFetching = true;
-      const listMovie = await this.takeDataFromMovieDB(this.props.loadPage);
-      const data = [...this.state.data,...listMovie.results];
-      this.setState({
-        data,
-      });
-      console.log('come here in COmponent Did Update', this.state.data);
-      this.isFetching = false;
+    if(this.props.fetchMore !== prevProps.fetchMore) {
+      if(this.isFetching) {
+        this.isFetching = false;
+      } else {
+        this.pageLoad = this.pageLoad + 1;
+        const listMovie = await this.takeDataFromMovieDB(this.pageLoad);
+        const data = [...this.state.data,...listMovie.results];
+        this.setState({
+          data,
+        });
+        this.isFetching = true;
+        this.props.doneFetchMore();
+      }
     }
   }
 
@@ -64,11 +68,13 @@ class NowPlaying extends React.Component {
 
   _onRefresh = async () => {
     this.setState({refreshing: true});
-    const data = await this.takeDataFromMovieDB();
+    this.pageLoad = 1;
+    const data = await this.takeDataFromMovieDB(this.pageLoad);
     this.setState({
       data: data.results,
       refreshing: false
     });
+    console.log(this.state.data.length);
   }
 
   render() {
@@ -92,12 +98,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  loadPage: selectors.getLoadPage(state),
   loadingState: selectors.getLoadingState(state),
+  fetchMore: selectors.getFetchMore(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addToFavoriteList: (favoriteList) => dispatch(actions.addToFavoriteList(favoriteList)),
+  doneFetchMore: () => dispatch(actions.doneFetchMore()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);
