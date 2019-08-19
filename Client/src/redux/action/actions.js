@@ -16,3 +16,14 @@ export const addToFavoriteList = (favoriteList) => (dispatch) => {
   });
 };
 
+export const fetchMore = () => (dispatch) => {
+  dispatch({
+    type:'FETCH_MORE',
+  });
+}
+
+export const doneFetchMore = () => (dispatch) => {
+  dispatch({
+    type:'DONE_FETCH_MORE',
+  });
+}

@@ -28,8 +28,11 @@ class movieCarousel extends React.Component {
     }
   }
 
-  _onScroll = ({index}) => {
-    console.log('_onScroll index',index);
+  _onScroll = () => {
+    const { data, fetchMore } = this.props;
+    if(this._carousel.currentIndex === Math.floor(data.length / 2)) {
+      fetchMore();
+    }
   }
 
   setModalVisible(visible) {
@@ -310,6 +313,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addToFavoriteList: (favoriteList) => dispatch(actions.addToFavoriteList(favoriteList)),
+  fetchMore: () => dispatch(actions.fetchMore()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(movieCarousel);

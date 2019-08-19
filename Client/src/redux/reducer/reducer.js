@@ -14,6 +14,18 @@ export default initialState => (state = initialState, action) => {
         favoriteList: payload.favoriteList
       }
     }
+    case 'FETCH_MORE': {
+      return {
+        ...state,
+        fetchMore: true,
+      }
+    }
+    case 'DONE_FETCH_MORE': {
+      return {
+        ...state,
+        fetchMore: false,
+      }
+    }
     default:
       return state;
   }
