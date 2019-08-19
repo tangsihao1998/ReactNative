@@ -14,6 +14,12 @@ export default initialState => (state = initialState, action) => {
         favoriteList: payload.favoriteList
       }
     }
+    case 'GET_FAVORITE_LIST': {
+      return {
+        ...state,
+        favoriteList: payload.favoriteList
+      }
+    }
     case 'FETCH_MORE': {
       return {
         ...state,
